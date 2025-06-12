@@ -1,25 +1,36 @@
 
 import React from 'react';
-import { BarChart3, Settings } from 'lucide-react';
+import { BarChart3, Menu, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
   return (
-    <header className="bg-background border-b border-border">
+    <header className="bg-white/80 backdrop-blur-lg border-b border-border/50 sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="bg-primary p-2 rounded-md">
-              <BarChart3 className="h-5 w-5 text-primary-foreground" />
+          <div className="flex items-center space-x-4">
+            <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-3 rounded-2xl shadow-lg">
+              <BarChart3 className="h-6 w-6 text-white" />
             </div>
-            <span className="text-xl font-semibold text-foreground">
-              RateAggregator
-            </span>
+            <div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                RateRunner
+              </span>
+              <div className="text-xs text-muted-foreground font-medium">
+                Currency Exchange
+              </div>
+            </div>
           </div>
           
-          <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
-              <Settings className="h-4 w-4" />
+          <div className="flex items-center space-x-3">
+            <Button variant="ghost" size="sm" className="rounded-full hover:bg-purple-50">
+              <Bell className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" className="rounded-full hover:bg-purple-50">
+              <Menu className="h-4 w-4" />
+            </Button>
+            <Button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full px-6 shadow-lg">
+              Get Started
             </Button>
           </div>
         </div>
