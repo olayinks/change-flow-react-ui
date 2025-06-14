@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { BarChart3, Menu, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -23,6 +23,18 @@ const Header = () => {
           </div>
           
           <div className="flex items-center space-x-3">
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                `rounded-full px-5 py-2 font-medium text-sm transition items-center mr-1 hidden md:inline-block ${
+                  isActive
+                    ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow"
+                    : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
             <Button variant="ghost" size="sm" className="rounded-full hover:bg-purple-50">
               <Bell className="h-4 w-4" />
             </Button>
