@@ -1,14 +1,14 @@
 import React from 'react';
 import { BarChart3, Menu, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header className="bg-white/80 backdrop-blur-lg border-b border-border/50 sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+          <Link to="/" className="flex items-center space-x-4">
             <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-3 rounded-2xl shadow-lg">
               <BarChart3 className="h-6 w-6 text-white" />
             </div>
@@ -20,7 +20,7 @@ const Header = () => {
                 Currency Exchange
               </div>
             </div>
-          </div>
+          </Link>
           
           <div className="flex items-center space-x-3">
             <NavLink
@@ -35,15 +35,22 @@ const Header = () => {
             >
               Dashboard
             </NavLink>
+            <Link to="/login">
+              <Button variant="ghost" size="sm" className="rounded-full hover:bg-purple-50 hidden md:inline-flex">
+                Sign In
+              </Button>
+            </Link>
             <Button variant="ghost" size="sm" className="rounded-full hover:bg-purple-50">
               <Bell className="h-4 w-4" />
             </Button>
             <Button variant="ghost" size="sm" className="rounded-full hover:bg-purple-50">
               <Menu className="h-4 w-4" />
             </Button>
-            <Button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full px-6 shadow-lg">
-              Get Started
-            </Button>
+            <Link to="/register">
+              <Button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full px-6 shadow-lg">
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
