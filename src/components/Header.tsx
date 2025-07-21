@@ -24,7 +24,7 @@ const Header = () => {
           
           <div className="flex items-center space-x-3">
             <NavLink
-              to="/admin"
+              to="/dashboard"
               className={({ isActive }) =>
                 `rounded-full px-5 py-2 font-medium text-sm transition items-center mr-1 hidden md:inline-block ${
                   isActive
@@ -34,6 +34,18 @@ const Header = () => {
               }
             >
               Dashboard
+            </NavLink>
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                `rounded-full px-5 py-2 font-medium text-sm transition items-center mr-1 hidden md:inline-block ${
+                  isActive
+                    ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow"
+                    : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+                }`
+              }
+            >
+              Admin
             </NavLink>
             <Link to="/login">
               <Button variant="ghost" size="sm" className="rounded-full hover:bg-purple-50 hidden md:inline-flex">
