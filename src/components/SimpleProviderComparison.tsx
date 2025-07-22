@@ -51,7 +51,9 @@ const SimpleProviderComparison = () => {
       <div className="space-y-3">
         {providers.map((provider, index) => (
           <Card key={index} className={`relative transition-all duration-200 hover:shadow-md ${
-            provider.recommended ? 'ring-2 ring-primary/20 bg-primary/5' : ''
+            provider.recommended 
+              ? 'ring-2 ring-brand-purple/20 bg-gradient-to-r from-brand-blue/5 to-brand-purple/5' 
+              : 'hover:shadow-lg'
           }`}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -79,7 +81,7 @@ const SimpleProviderComparison = () => {
                     <div className="text-lg font-bold">{provider.total}</div>
                     <div className="text-sm text-muted-foreground">Recipient gets</div>
                   </div>
-                  <button className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                  <button className="flex items-center gap-2 bg-gradient-to-r from-brand-blue to-brand-purple text-white px-4 py-2 rounded-lg hover:from-brand-blue/90 hover:to-brand-purple/90 transition-all duration-200 shadow-md hover:shadow-lg">
                     Select
                     <ArrowRight className="h-4 w-4" />
                   </button>
