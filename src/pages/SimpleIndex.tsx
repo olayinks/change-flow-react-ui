@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import CurrencyConverter from '@/components/CurrencyConverter';
+import SimpleProviderComparison from '@/components/SimpleProviderComparison';
 import { Check, Globe, Shield, Zap } from 'lucide-react';
 
 const SimpleIndex = () => {
@@ -96,6 +97,13 @@ const SimpleIndex = () => {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        {/* Provider Comparison */}
+        <section className="py-16 px-6">
+          <div className="container mx-auto max-w-4xl">
+            <SimpleProviderComparison />
           </div>
         </section>
 
