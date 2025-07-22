@@ -6,6 +6,7 @@ import CurrencyConverter from '@/components/CurrencyConverter';
 import ProviderComparison from '@/components/ProviderComparison';
 import MarketStats from '@/components/MarketStats';
 import TradingPanel from '@/components/TradingPanel';
+import BestRatesOfDay from '@/components/BestRatesOfDay';
 
 const Index = () => {
   return (
@@ -28,6 +29,9 @@ const Index = () => {
 
         {/* Market Stats */}
         <MarketStats />
+
+        {/* Best Rates of the Day */}
+        <BestRatesOfDay />
 
         {/* Currency Converter */}
         <CurrencyConverter />
