@@ -36,6 +36,15 @@
 
     --radius: 0.5rem;
 
+    /* Colorful gradients and brand colors */
+    --gradient-primary: linear-gradient(135deg, 221 83% 53%, 262 83% 58%);
+    --gradient-secondary: linear-gradient(135deg, 262 83% 58%, 290 84% 61%);
+    --gradient-accent: linear-gradient(135deg, 142 76% 36%, 158 64% 52%);
+    --brand-blue: 221 83% 53%;
+    --brand-purple: 262 83% 58%;
+    --brand-teal: 142 76% 36%;
+    --success-green: 142 71% 45%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;

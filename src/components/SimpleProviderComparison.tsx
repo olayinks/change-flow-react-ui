@@ -60,7 +60,7 @@ const SimpleProviderComparison = () => {
                     <div className="flex items-center gap-2">
                       <h3 className="font-semibold">{provider.name}</h3>
                       {provider.recommended && (
-                        <Star className="h-4 w-4 text-primary fill-primary" />
+                        <Star className="h-4 w-4 text-brand-purple fill-brand-purple" />
                       )}
                       <span className="text-xs px-2 py-1 bg-muted rounded-full text-muted-foreground">
                         {provider.badge}

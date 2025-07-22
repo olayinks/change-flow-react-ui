@@ -44,7 +44,7 @@ const SimpleIndex = () => {
                 <div className="space-y-6">
                   <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
                     Send money abroad with the{" "}
-                    <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">
                       best exchange rates
                     </span>
                   </h1>
@@ -58,7 +58,7 @@ const SimpleIndex = () => {
                 <div className="space-y-3">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
+                      <Check className="h-5 w-5 text-success-green flex-shrink-0" />
                       <span className="text-muted-foreground">{benefit}</span>
                     </div>
                   ))}
