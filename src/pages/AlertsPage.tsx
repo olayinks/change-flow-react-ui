@@ -259,6 +259,7 @@ const AlertsPage = () => {
                         size="sm"
                         onClick={() => handleEdit(alert)}
                         className="hover:bg-accent hover:text-accent-foreground"
+                        aria-label="Edit alert"
                       >
                         <Edit className="w-4 h-4" />
                       </Button>
@@ -267,6 +268,7 @@ const AlertsPage = () => {
                         size="sm"
                         onClick={() => handleDelete(alert.id)}
                         className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        aria-label="Delete alert"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
