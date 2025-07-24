@@ -258,7 +258,7 @@ const AlertsPage = () => {
                         variant="ghost" 
                         size="sm"
                         onClick={() => handleEdit(alert)}
-                        className="hover:bg-brand-blue/10"
+                        className="hover:bg-accent hover:text-accent-foreground"
                       >
                         <Edit className="w-4 h-4" />
                       </Button>
