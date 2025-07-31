@@ -58,24 +58,27 @@ const SimpleProviderComparison = () => {
             provider.recommended 
               ? 'ring-2 ring-primary/20 bg-gradient-to-r from-primary/5 to-primary/10' 
               : 'hover:shadow-lg'
-          } ${
-            provider.status === 'live' 
-              ? 'border-2 border-emerald-500/60 shadow-emerald-500/20' 
-              : 'border-2 border-slate-400/60 shadow-slate-400/20'
           }`}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold">{provider.name}</h3>
-                      {provider.recommended && (
-                        <Star className="h-4 w-4 text-brand-purple fill-brand-purple" />
-                      )}
-                      <span className="text-xs px-2 py-1 bg-muted rounded-full text-muted-foreground">
-                        {provider.badge}
-                      </span>
-                    </div>
+                     <div className="flex items-center gap-2">
+                       <h3 className="font-semibold">{provider.name}</h3>
+                       {provider.recommended && (
+                         <Star className="h-4 w-4 text-primary fill-primary" />
+                       )}
+                       <span className="text-xs px-2 py-1 bg-muted rounded-full text-muted-foreground">
+                         {provider.badge}
+                       </span>
+                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                         provider.status === 'live' 
+                           ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' 
+                           : 'bg-slate-100 text-slate-600 border border-slate-200'
+                       }`}>
+                         {provider.status === 'live' ? 'Live' : 'Stale'}
+                       </span>
+                     </div>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <span>Rate: {provider.rate}</span>
                       <span>Fee: {provider.fee}</span>
