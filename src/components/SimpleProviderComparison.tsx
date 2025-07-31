@@ -11,7 +11,8 @@ const SimpleProviderComparison = () => {
       total: "924.50 EUR",
       time: "Within hours",
       badge: "Best rate",
-      recommended: true
+      recommended: true,
+      status: "live"
     },
     {
       name: "Revolut",
@@ -19,7 +20,8 @@ const SimpleProviderComparison = () => {
       fee: "$3.00",
       total: "923.00 EUR",
       time: "Instant",
-      badge: "Fastest"
+      badge: "Fastest",
+      status: "live"
     },
     {
       name: "XE Money",
@@ -27,7 +29,8 @@ const SimpleProviderComparison = () => {
       fee: "$5.99",
       total: "921.50 EUR",
       time: "1-2 days",
-      badge: "Good value"
+      badge: "Good value",
+      status: "stale"
     },
     {
       name: "Western Union",
@@ -35,7 +38,8 @@ const SimpleProviderComparison = () => {
       fee: "$8.00",
       total: "918.00 EUR",
       time: "Same day",
-      badge: "Widely available"
+      badge: "Widely available",
+      status: "stale"
     }
   ];
 
@@ -52,8 +56,12 @@ const SimpleProviderComparison = () => {
         {providers.map((provider, index) => (
           <Card key={index} className={`relative transition-all duration-200 hover:shadow-md ${
             provider.recommended 
-              ? 'ring-2 ring-brand-purple/20 bg-gradient-to-r from-brand-blue/5 to-brand-purple/5' 
+              ? 'ring-2 ring-primary/20 bg-gradient-to-r from-primary/5 to-primary/10' 
               : 'hover:shadow-lg'
+          } ${
+            provider.status === 'live' 
+              ? 'border-2 border-emerald-500/60 shadow-emerald-500/20' 
+              : 'border-2 border-slate-400/60 shadow-slate-400/20'
           }`}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
