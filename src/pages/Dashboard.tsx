@@ -43,7 +43,7 @@ const DashboardOverview = () => (
 const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50">
-      <Header />
+      <Header fullWidth />
       <div className="flex">
         <DashboardSidebar />
       <main className="flex-1 p-8 flex flex-col gap-8 overflow-auto">

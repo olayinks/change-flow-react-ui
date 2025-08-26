@@ -3,7 +3,11 @@ import { BarChart3, Menu, Bell, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavLink, Link } from "react-router-dom";
 
-const Header = () => {
+interface HeaderProps {
+  fullWidth?: boolean;
+}
+
+const Header = ({ fullWidth = false }: HeaderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -22,7 +26,7 @@ const Header = () => {
 
   return (
     <header className="bg-white/80 backdrop-blur-lg border-b border-border/50 sticky top-0 z-50">
-      <div className="container mx-auto px-6 py-4">
+      <div className={fullWidth ? "w-full px-6 py-4" : "container mx-auto px-6 py-4"}>
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-4">
             <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-3 rounded-2xl shadow-lg">

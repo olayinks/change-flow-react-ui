@@ -12,7 +12,7 @@ const stats = [
 
 const AdminDashboard = () => (
   <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50">
-    <Header />
+    <Header fullWidth />
     <div className="flex">
       <AdminSidebar />
     <main className="flex-1 p-8 flex flex-col gap-8">
