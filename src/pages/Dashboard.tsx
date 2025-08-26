@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
+import Header from "@/components/Header";
 import DashboardStats from "@/components/dashboard/DashboardStats";
 import RateHistory from "@/components/dashboard/RateHistory";
 import AlertsPanel from "@/components/dashboard/AlertsPanel";
@@ -41,14 +42,17 @@ const DashboardOverview = () => (
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 flex">
-      <DashboardSidebar />
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50">
+      <Header />
+      <div className="flex">
+        <DashboardSidebar />
       <main className="flex-1 p-8 flex flex-col gap-8 overflow-auto">
         <Routes>
           <Route path="/" element={<DashboardOverview />} />
           <Route path="/alerts" element={<AlertsPage />} />
         </Routes>
       </main>
+      </div>
     </div>
   );
 };

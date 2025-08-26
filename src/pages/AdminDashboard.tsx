@@ -1,6 +1,7 @@
 
 import React from "react";
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import Header from "@/components/Header";
 
 const stats = [
   { label: "Total Users", value: 8723 },
@@ -10,8 +11,10 @@ const stats = [
 ];
 
 const AdminDashboard = () => (
-  <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 flex">
-    <AdminSidebar />
+  <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50">
+    <Header />
+    <div className="flex">
+      <AdminSidebar />
     <main className="flex-1 p-8 flex flex-col gap-8">
       <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
         Admin Dashboard
@@ -33,6 +36,7 @@ const AdminDashboard = () => (
         </div>
       </section>
     </main>
+    </div>
   </div>
 );
 
