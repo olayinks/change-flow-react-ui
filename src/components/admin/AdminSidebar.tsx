@@ -13,7 +13,7 @@ const links = [
 ];
 
 const AdminSidebar = () => (
-  <aside className="min-h-screen bg-white/90 p-6 shadow-lg w-64 hidden md:flex flex-col">
+  <aside className="h-screen bg-white/90 p-6 shadow-lg w-64 hidden md:flex flex-col sticky top-0 overflow-y-auto">
     <div className="flex items-center mb-10">
       <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Admin</span>
     </div>
