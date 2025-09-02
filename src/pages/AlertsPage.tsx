@@ -17,7 +17,8 @@ const initialAlerts = [
     currentRate: 0.8523,
     active: true,
     created: "2024-01-10",
-    triggered: false
+    triggered: false,
+    providers: ["XE", "CurrencyAPI", "Fixer"]
   },
   {
     id: 2,
@@ -28,7 +29,8 @@ const initialAlerts = [
     currentRate: 1.2654,
     active: true,
     created: "2024-01-08",
-    triggered: true
+    triggered: true,
+    providers: ["All"]
   },
   {
     id: 3,
@@ -39,7 +41,8 @@ const initialAlerts = [
     currentRate: 159.87,
     active: false,
     created: "2024-01-12",
-    triggered: false
+    triggered: false,
+    providers: ["ExchangeRateAPI", "CurrencyLayer"]
   },
 ];
 
@@ -59,7 +62,8 @@ const AlertsPage = () => {
               fromCurrency: alertData.fromCurrency,
               toCurrency: alertData.toCurrency,
               condition: alertData.condition,
-              targetRate: alertData.targetRate 
+              targetRate: alertData.targetRate,
+              providers: alertData.providers
             }
           : alert
       ));
@@ -231,6 +235,20 @@ const AlertsPage = () => {
                       </div>
                       <div className="text-sm text-muted-foreground">
                         Alert when rate goes {alert.condition} {alert.targetRate}
+                      </div>
+                      <div className="flex items-center gap-2 mt-2">
+                        <span className="text-xs text-muted-foreground">Providers:</span>
+                        <div className="flex flex-wrap gap-1">
+                          {alert.providers.map((provider, index) => (
+                            <Badge 
+                              key={index} 
+                              variant="outline" 
+                              className="text-xs px-2 py-0.5 bg-background/50 border-muted"
+                            >
+                              {provider}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
