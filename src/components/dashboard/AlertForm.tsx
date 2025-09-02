@@ -24,7 +24,7 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
     toCurrency: alert?.toCurrency || "",
     condition: alert?.condition || "",
     targetRate: alert?.targetRate?.toString() || "",
-    providers: alert?.providers || []
+    providers: alert?.providers || ["All"]
   });
 
   const handleSubmit = (e: React.FormEvent) => {
