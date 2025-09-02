@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { X } from "lucide-react";
+import { X, Check } from "lucide-react";
 
 interface AlertFormProps {
   alert?: {
@@ -12,6 +12,7 @@ interface AlertFormProps {
     toCurrency: string;
     condition: string;
     targetRate: number;
+    providers?: string[];
   } | null;
   onSave: (alertData: any) => void;
   onCancel: () => void;
@@ -22,12 +23,13 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
     fromCurrency: alert?.fromCurrency || "",
     toCurrency: alert?.toCurrency || "",
     condition: alert?.condition || "",
-    targetRate: alert?.targetRate?.toString() || ""
+    targetRate: alert?.targetRate?.toString() || "",
+    providers: alert?.providers || []
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.fromCurrency && formData.toCurrency && formData.condition && formData.targetRate) {
+    if (formData.fromCurrency && formData.toCurrency && formData.condition && formData.targetRate && formData.providers.length > 0) {
       onSave({
         ...formData,
         targetRate: parseFloat(formData.targetRate),
@@ -37,6 +39,26 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
   };
 
   const currencies = ["USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY"];
+  const providers = ["Wise", "Revolut", "XE", "Western Union", "MoneyGram", "Remitly"];
+
+  const toggleProvider = (provider: string) => {
+    setFormData(prev => {
+      if (provider === "All") {
+        return {
+          ...prev,
+          providers: prev.providers.includes("All") ? [] : ["All"]
+        };
+      } else {
+        const newProviders = prev.providers.includes(provider)
+          ? prev.providers.filter(p => p !== provider && p !== "All")
+          : [...prev.providers.filter(p => p !== "All"), provider];
+        return {
+          ...prev,
+          providers: newProviders
+        };
+      }
+    });
+  };
 
   return (
     <Card className="p-6 bg-gradient-to-br from-brand-blue/5 to-brand-purple/5 border border-brand-purple/20">
@@ -112,6 +134,43 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
               value={formData.targetRate}
               onChange={(e) => setFormData(prev => ({ ...prev, targetRate: e.target.value }))}
             />
+          </div>
+        </div>
+
+        <div>
+          <label className="text-sm font-medium mb-2 block">Providers</label>
+          <div className="space-y-2">
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => toggleProvider("All")}
+                className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+                  formData.providers.includes("All")
+                    ? "bg-gradient-to-r from-brand-blue to-brand-purple text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {formData.providers.includes("All") && <Check className="w-3 h-3" />}
+                All Providers
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {providers.map(provider => (
+                <button
+                  key={provider}
+                  type="button"
+                  onClick={() => toggleProvider(provider)}
+                  className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+                    formData.providers.includes(provider)
+                      ? "bg-gradient-to-r from-brand-blue to-brand-purple text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {formData.providers.includes(provider) && <Check className="w-3 h-3" />}
+                  {provider}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
