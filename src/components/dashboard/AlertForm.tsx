@@ -27,9 +27,36 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
     providers: alert?.providers || ["All"]
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.fromCurrency) {
+      newErrors.fromCurrency = "Please select a source currency";
+    }
+    if (!formData.toCurrency) {
+      newErrors.toCurrency = "Please select a target currency";
+    }
+    if (!formData.condition) {
+      newErrors.condition = "Please select a condition";
+    }
+    if (!formData.targetRate) {
+      newErrors.targetRate = "Please enter a target rate";
+    } else if (isNaN(parseFloat(formData.targetRate)) || parseFloat(formData.targetRate) <= 0) {
+      newErrors.targetRate = "Please enter a valid positive number";
+    }
+    if (formData.providers.length === 0) {
+      newErrors.providers = "Please select at least one provider";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.fromCurrency && formData.toCurrency && formData.condition && formData.targetRate && formData.providers.length > 0) {
+    if (validateForm()) {
       onSave({
         ...formData,
         targetRate: parseFloat(formData.targetRate),
@@ -43,21 +70,20 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
 
   const toggleProvider = (provider: string) => {
     setFormData(prev => {
+      let newProviders;
       if (provider === "All") {
-        return {
-          ...prev,
-          providers: prev.providers.includes("All") ? [] : ["All"]
-        };
+        newProviders = prev.providers.includes("All") ? [] : ["All"];
       } else {
-        const newProviders = prev.providers.includes(provider)
+        newProviders = prev.providers.includes(provider)
           ? prev.providers.filter(p => p !== provider && p !== "All")
           : [...prev.providers.filter(p => p !== "All"), provider];
-        return {
-          ...prev,
-          providers: newProviders
-        };
       }
+      return {
+        ...prev,
+        providers: newProviders
+      };
     });
+    setErrors(prev => ({ ...prev, providers: '' }));
   };
 
   return (
@@ -77,9 +103,12 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
             <label className="text-sm font-medium mb-2 block">From Currency</label>
             <Select 
               value={formData.fromCurrency} 
-              onValueChange={(value) => setFormData(prev => ({ ...prev, fromCurrency: value }))}
+              onValueChange={(value) => {
+                setFormData(prev => ({ ...prev, fromCurrency: value }));
+                setErrors(prev => ({ ...prev, fromCurrency: '' }));
+              }}
             >
-              <SelectTrigger>
+              <SelectTrigger className={errors.fromCurrency ? "border-red-500" : ""}>
                 <SelectValue placeholder="Select currency" />
               </SelectTrigger>
               <SelectContent>
@@ -88,15 +117,19 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
                 ))}
               </SelectContent>
             </Select>
+            {errors.fromCurrency && <p className="text-red-500 text-xs mt-1">{errors.fromCurrency}</p>}
           </div>
 
           <div>
             <label className="text-sm font-medium mb-2 block">To Currency</label>
             <Select 
               value={formData.toCurrency} 
-              onValueChange={(value) => setFormData(prev => ({ ...prev, toCurrency: value }))}
+              onValueChange={(value) => {
+                setFormData(prev => ({ ...prev, toCurrency: value }));
+                setErrors(prev => ({ ...prev, toCurrency: '' }));
+              }}
             >
-              <SelectTrigger>
+              <SelectTrigger className={errors.toCurrency ? "border-red-500" : ""}>
                 <SelectValue placeholder="Select currency" />
               </SelectTrigger>
               <SelectContent>
@@ -105,6 +138,7 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
                 ))}
               </SelectContent>
             </Select>
+            {errors.toCurrency && <p className="text-red-500 text-xs mt-1">{errors.toCurrency}</p>}
           </div>
         </div>
 
@@ -113,9 +147,12 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
             <label className="text-sm font-medium mb-2 block">Condition</label>
             <Select 
               value={formData.condition} 
-              onValueChange={(value) => setFormData(prev => ({ ...prev, condition: value }))}
+              onValueChange={(value) => {
+                setFormData(prev => ({ ...prev, condition: value }));
+                setErrors(prev => ({ ...prev, condition: '' }));
+              }}
             >
-              <SelectTrigger>
+              <SelectTrigger className={errors.condition ? "border-red-500" : ""}>
                 <SelectValue placeholder="Select condition" />
               </SelectTrigger>
               <SelectContent>
@@ -123,6 +160,7 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
                 <SelectItem value="below">Goes Below</SelectItem>
               </SelectContent>
             </Select>
+            {errors.condition && <p className="text-red-500 text-xs mt-1">{errors.condition}</p>}
           </div>
 
           <div>
@@ -132,8 +170,13 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
               step="0.0001"
               placeholder="0.0000"
               value={formData.targetRate}
-              onChange={(e) => setFormData(prev => ({ ...prev, targetRate: e.target.value }))}
+              onChange={(e) => {
+                setFormData(prev => ({ ...prev, targetRate: e.target.value }));
+                setErrors(prev => ({ ...prev, targetRate: '' }));
+              }}
+              className={errors.targetRate ? "border-red-500" : ""}
             />
+            {errors.targetRate && <p className="text-red-500 text-xs mt-1">{errors.targetRate}</p>}
           </div>
         </div>
 
@@ -172,6 +215,7 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
               ))}
             </div>
           </div>
+          {errors.providers && <p className="text-red-500 text-xs mt-1">{errors.providers}</p>}
         </div>
 
         <div className="flex gap-3 pt-4">
