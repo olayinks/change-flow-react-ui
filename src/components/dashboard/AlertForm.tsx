@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { X, Check } from "lucide-react";
+import { z } from "zod";
 
 interface AlertFormProps {
   alert?: {
@@ -18,6 +19,20 @@ interface AlertFormProps {
   onCancel: () => void;
 }
 
+const alertSchema = z.object({
+  fromCurrency: z.string().min(1, "Please select a source currency"),
+  toCurrency: z.string().min(1, "Please select a target currency"), 
+  condition: z.enum(["above", "below"], {
+    errorMap: () => ({ message: "Please select a condition" })
+  }),
+  targetRate: z.string()
+    .min(1, "Please enter a target rate")
+    .refine((val) => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
+      message: "Please enter a valid positive number"
+    }),
+  providers: z.array(z.string()).min(1, "Please select at least one provider")
+});
+
 const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
   const [formData, setFormData] = useState({
     fromCurrency: alert?.fromCurrency || "",
@@ -30,28 +45,22 @@ const AlertForm = ({ alert, onSave, onCancel }: AlertFormProps) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!formData.fromCurrency) {
-      newErrors.fromCurrency = "Please select a source currency";
+    try {
+      alertSchema.parse(formData);
+      setErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path.length > 0) {
+            newErrors[err.path[0] as string] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+      return false;
     }
-    if (!formData.toCurrency) {
-      newErrors.toCurrency = "Please select a target currency";
-    }
-    if (!formData.condition) {
-      newErrors.condition = "Please select a condition";
-    }
-    if (!formData.targetRate) {
-      newErrors.targetRate = "Please enter a target rate";
-    } else if (isNaN(parseFloat(formData.targetRate)) || parseFloat(formData.targetRate) <= 0) {
-      newErrors.targetRate = "Please enter a valid positive number";
-    }
-    if (formData.providers.length === 0) {
-      newErrors.providers = "Please select at least one provider";
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
